@@ -6,26 +6,35 @@ function Weather() {
   const [dayIndex, setDayIndex] = useState(0);
 
   useEffect(() => {
-    // 気象庁のAPIから東京地方（130000）のデータを取得
     fetch('https://www.jma.go.jp/bosai/forecast/data/forecast/130000.json')
       .then(response => response.json())
       .then(data => setWeatherData(data));
   }, []);
 
-  // データ読み込み中の表示
   if (!weatherData) return <p>読み込み中...</p>;
 
-  // データの抽出
   const areaName = weatherData[0].timeSeries[0].areas[0].area.name;
   const weathers = weatherData[0].timeSeries[0].areas[0].weathers;
   const dayLabels = ["今日", "明日", "明後日"];
 
-  // ★追加：天気の文字列から背景用クラス名を決める関数
-  const getBackgroundClass = (weatherText) => {
-    if (weatherText.includes('晴')) return 'bg-sunny';
-    if (weatherText.includes('雨')) return 'bg-rainy';
-    if (weatherText.includes('雪')) return 'bg-snowy';
-    if (weatherText.includes('曇')) return 'bg-cloudy';
+const getBackgroundClass = (weatherText) => {
+    const checkPos = (pos) => (pos === -1 ? 999 : pos);
+
+    const sunnyPos  = checkPos(weatherText.indexOf('晴'));
+    const cloudyPos = checkPos(weatherText.indexOf('くもり'));
+    const rainyPos  = checkPos(weatherText.indexOf('雨'));
+    const snowyPos  = checkPos(weatherText.indexOf('雪'));
+
+    const minPos = Math.min(sunnyPos, cloudyPos, rainyPos, snowyPos);
+
+    // 全く見つからない場合はデフォルト
+    if (minPos === 999) return 'bg-default';
+
+    if (minPos === snowyPos)  return 'bg-snowy';
+    if (minPos === rainyPos)  return 'bg-rainy';
+    if (minPos === cloudyPos) return 'bg-cloudy';
+    if (minPos === sunnyPos)  return 'bg-sunny';
+
     return 'bg-default';
   };
 
@@ -42,7 +51,6 @@ function Weather() {
           <button
             key={label}
             onClick={() => setDayIndex(index)}
-            /* 選択中のボタンに active クラスを付与 */
             className={`tab-button ${dayIndex === index ? 'active' : ''}`}
           >
             {label}

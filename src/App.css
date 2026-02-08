@@ -49,25 +49,25 @@
 
 /* 天気ごとの背景色 */
 .bg-sunny {
-  background-color: #4169e1; /* 暖かいオレンジがかった白 */
   background: linear-gradient(to bottom, #ffefba, #ffffff);
 }
 
 .bg-cloudy {
-  background-color: #f0f0f0;
   background: linear-gradient(to bottom, #d7d2cc, #3043521a);
 }
 
 .bg-rainy {
-  background-color: #e1f5fe;
   background: linear-gradient(to bottom, #74ebd5, #acb6e5);
 }
 
 .bg-snowy {
-  background-color: #fafafa;
   background: linear-gradient(to bottom, #e6e9f0, #eef1f5);
 }
 
 .bg-default {
   background-color: #ffffff;
+}
+
+.weather-text{
+  font-size: 20px;
 }
