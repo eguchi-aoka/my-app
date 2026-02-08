@@ -49,7 +49,7 @@
 
 /* 天気ごとの背景色 */
 .bg-sunny {
-  background: linear-gradient(to bottom, #ffefba, #ffffff);
+  background: linear-gradient(to bottom, #77eaff, #ffffff);
 }
 
 .bg-cloudy {
@@ -57,7 +57,7 @@
 }
 
 .bg-rainy {
-  background: linear-gradient(to bottom, #74ebd5, #acb6e5);
+  background: linear-gradient(to bottom, #8398A2, #acb6e5);
 }
 
 .bg-snowy {
